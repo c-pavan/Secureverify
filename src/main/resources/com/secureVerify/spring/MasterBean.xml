@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	
+	<bean id="agentBo" class="com.secureVerify.bo.impl.AgentBoImpl" >
+		<property name="agentDAO" ref="agentDAO" />
+	</bean>
+	<bean id="agentDAO" class="com.secureVerify.dao.impl.AgentDAOImpl" >
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+ 
+	<bean id="candidateScheduleTimingBo" class="com.secureVerify.bo.impl.CandidateScheduleTimingBoImpl" >
+		<property name="candidateScheduleTimingDAO" ref="candidateScheduleTimingDAO" />
+	</bean>
+	<bean id="candidateScheduleTimingDAO" class="com.secureVerify.dao.impl.CandidateScheduleTimingDAOImpl" >
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+ 
+	<bean id="candidateCouponMapBo" class="com.secureVerify.bo.impl.CandidateCouponMapBoImpl" >
+		<property name="candidateCouponMapDAO" ref="candidateCouponMapDAO" />
+	</bean>
+	<bean id="candidateCouponMapDAO" class="com.secureVerify.dao.impl.CandidateCouponMapDAOImpl" >
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+ 
+	<bean id="candidateEmployerSkillSetMapBo" class="com.secureVerify.bo.impl.CandidateEmployerSkillSetMapBoImpl" >
+		<property name="candidateEmployerSkillSetMapDAO" ref="candidateEmployerSkillSetMapDAO" />
+	</bean>
+	<bean id="candidateEmployerSkillSetMapDAO" class="com.secureVerify.dao.impl.CandidateEmployerSkillSetMapDAOImpl" >
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+ 
+	<bean id="candidateBo" class="com.secureVerify.bo.impl.CandidateBoImpl" >
+		<property name="candidateDAO" ref="candidateDAO" />
+	</bean>
+	<bean id="candidateDAO" class="com.secureVerify.dao.impl.CandidateDAOImpl" >
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+ 
+	<bean id="couponBo" class="com.secureVerify.bo.impl.CouponBoImpl" >
+		<property name="couponDAO" ref="couponDAO" />
+	</bean>
+	<bean id="couponDAO" class="com.secureVerify.dao.impl.CouponDAOImpl" >
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+ 
+	<bean id="creditsAvailableBo" class="com.secureVerify.bo.impl.CreditsAvailableBoImpl" >
+		<property name="creditsAvailableDAO" ref="creditsAvailableDAO" />
+	</bean>
+	<bean id="creditsAvailableDAO" class="com.secureVerify.dao.impl.CreditsAvailableDAOImpl" >
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+ 
+	<bean id="creditTypesBo" class="com.secureVerify.bo.impl.CreditTypesBoImpl" >
+		<property name="creditTypesDAO" ref="creditTypesDAO" />
+	</bean>
+	<bean id="creditTypesDAO" class="com.secureVerify.dao.impl.CreditTypesDAOImpl" >
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+ 
+	<bean id="employerBo" class="com.secureVerify.bo.impl.EmployerBoImpl" >
+		<property name="employerDAO" ref="employerDAO" />
+	</bean>
+	<bean id="employerDAO" class="com.secureVerify.dao.impl.EmployerDAOImpl" >
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+ 
+	<bean id="feedbackBo" class="com.secureVerify.bo.impl.FeedbackBoImpl" >
+		<property name="feedbackDAO" ref="feedbackDAO" />
+	</bean>
+	<bean id="feedbackDAO" class="com.secureVerify.dao.impl.FeedbackDAOImpl" >
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+ 
+	<bean id="interviewerBo" class="com.secureVerify.bo.impl.InterviewerBoImpl" >
+		<property name="interviewerDAO" ref="interviewerDAO" />
+	</bean>
+	<bean id="interviewerDAO" class="com.secureVerify.dao.impl.InterviewerDAOImpl" >
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+ 
+	<bean id="locationBo" class="com.secureVerify.bo.impl.LocationBoImpl" >
+		<property name="locationDAO" ref="locationDAO" />
+	</bean>
+	<bean id="locationDAO" class="com.secureVerify.dao.impl.LocationDAOImpl" >
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+ 
+	<bean id="locationScheduleTimingBo" class="com.secureVerify.bo.impl.LocationScheduleTimingBoImpl" >
+		<property name="locationScheduleTimingDAO" ref="locationScheduleTimingDAO" />
+	</bean>
+	<bean id="locationScheduleTimingDAO" class="com.secureVerify.dao.impl.LocationScheduleTimingDAOImpl" >
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+ 
+	<bean id="paymentDetailBo" class="com.secureVerify.bo.impl.PaymentDetailBoImpl" >
+		<property name="paymentDetailDAO" ref="paymentDetailDAO" />
+	</bean>
+	<bean id="paymentDetailDAO" class="com.secureVerify.dao.impl.PaymentDetailDAOImpl" >
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+ 
+	<bean id="propertieBo" class="com.secureVerify.bo.impl.PropertieBoImpl" >
+		<property name="propertieDAO" ref="propertieDAO" />
+	</bean>
+	<bean id="propertieDAO" class="com.secureVerify.dao.impl.PropertieDAOImpl" >
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+ 
+	<bean id="secureVerifyEmailSubjectBodyBo" class="com.secureVerify.bo.impl.SecureVerifyEmailSubjectBodyBoImpl" >
+		<property name="secureVerifyEmailSubjectBodyDAO" ref="secureVerifyEmailSubjectBodyDAO" />
+	</bean>
+	<bean id="secureVerifyEmailSubjectBodyDAO" class="com.secureVerify.dao.impl.SecureVerifyEmailSubjectBodyDAOImpl" >
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+ 
+	<bean id="skillSetBo" class="com.secureVerify.bo.impl.SkillSetBoImpl" >
+		<property name="skillSetDAO" ref="skillSetDAO" />
+	</bean>
+	<bean id="skillSetDAO" class="com.secureVerify.dao.impl.SkillSetDAOImpl" >
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+ 
+	<bean id="userBo" class="com.secureVerify.bo.impl.UserBoImpl" >
+		<property name="userDAO" ref="userDAO" />
+	</bean>
+	<bean id="userDAO" class="com.secureVerify.dao.impl.UserDAOImpl" >
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+ 
+</beans>

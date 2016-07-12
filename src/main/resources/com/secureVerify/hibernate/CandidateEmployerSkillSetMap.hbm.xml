@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.secureVerify.model.CandidateEmployerSkillSetMap" table="candidate_employer_skillset_map" catalog="secureverify">
+        <id name="candidateEmployerSkillSetMapId" type="java.lang.Integer">
+            <column name="candidate_employer_skillset_map_id" />
+            <generator class="identity" />
+        </id>
+		<property name="candidateId" type="int" column="candidate_id" length="15" not-null="true"/>
+		<property name="employerId" type="int" column="employer_id" length="15" not-null="true"/>
+		<property name="skillSetId" type="int" column="skillset_id" length="15" not-null="true"/>
+        <property name="isScheduled" type="int" column="is_scheduled" not-null="true" />
+    </class>
+</hibernate-mapping>

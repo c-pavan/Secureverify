@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.secureVerify.model.User" table="user" catalog="secureverify">
+        <id name="userId" type="java.lang.Integer">
+            <column name="user_id" />
+            <generator class="identity" />
+        </id>
+		<property name="userEmailId" type="string" column="user_email_id" length="200" not-null="true"/>
+		<property name="userPassword" type="string" column="user_password" length="200" not-null="true"/>
+		<property name="userFirstName" type="string" column="user_first_name" length="200" not-null="true"/>
+		<property name="userLastName" type="string" column="user_last_name" length="200" not-null="true"/>
+		<property name="userPhoneNo" type="string" column="user_phone_no" length="20" not-null="true"/>
+		<property name="userAddressLine1" type="string" column="user_address_line_1" length="200" not-null="true"/>
+		<property name="userAddressLine2" type="string" column="user_address_line_2" length="200" not-null="true"/>
+		<property name="userCity" type="string" column="user_city" length="200" not-null="true"/>
+		<property name="userState" type="string" column="user_state" length="200" not-null="true"/>
+		<property name="userCountry" type="string" column="user_country" length="200" not-null="true"/>
+		<property name="userZipcode" type="string" column="user_zipcode" length="20" not-null="true"/>
+		<property name="userDesignation" type="string" column="user_designation" length="200" not-null="true"/>
+		<property name="verificationCode" type="string" column="verification_code" length="20" />
+        <property name="creationDate" type="date" column="creation_date"  not-null="true" />
+        <property name="lastModifiedTime" type="timestamp" column="last_modified_time" length="19" not-null="true" />
+        <property name="status" type="int" column="status" not-null="true" />
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.secureVerify.model.Coupon" table="coupon" catalog="secureverify">
+        <id name="couponId" type="java.lang.Integer">
+            <column name="coupon_id" />
+            <generator class="identity" />
+        </id>
+		<property name="couponCode" type="string" column="coupon_code" length="200" not-null="true"/>
+		<property name="couponName" type="string" column="coupon_name" length="200" not-null="true"/>
+		<property name="discountPercentage" type="java.math.BigDecimal" column="discount_percentage" not-null="true"/>
+		<property name="discountAmount" type="java.math.BigDecimal" column="discount_amount" not-null="true"/>
+		<property name="expiryDate" type="date" column="expiry_date" not-null="true"/>
+		<property name="createdBy" type="int" column="created_by" not-null="true" />
+        <property name="lastModifiedBy" type="int" column="last_modified_by" not-null="true" />
+        <property name="creationDate" type="date" column="creation_date"  not-null="true" />
+        <property name="lastModifiedTime" type="timestamp" column="last_modified_time" length="19" not-null="true" />
+        <property name="status" type="int" column="status" not-null="true" />
+    </class>
+</hibernate-mapping>

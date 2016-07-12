@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+ 
+<!-- Hibernate session factory -->
+<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+ 
+    <property name="dataSource">
+      <ref bean="dataSource"/>
+    </property>
+ 
+    <property name="hibernateProperties">
+       <props>
+         <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+         <prop key="hibernate.show_sql">false</prop>
+       </props>
+    </property>
+ 
+    <property name="mappingResources">
+		<list>
+          <value>com/secureVerify/hibernate/Agent.hbm.xml</value>
+          <value>com/secureVerify/hibernate/Candidate.hbm.xml</value>
+          <value>com/secureVerify/hibernate/CandidateCouponMap.hbm.xml</value>
+          <value>com/secureVerify/hibernate/CandidateEmployerSkillSetMap.hbm.xml</value>
+          <value>com/secureVerify/hibernate/CandidateScheduleTiming.hbm.xml</value>
+          <value>com/secureVerify/hibernate/Coupon.hbm.xml</value>
+          <value>com/secureVerify/hibernate/CreditsAvailable.hbm.xml</value>
+          <value>com/secureVerify/hibernate/CreditTypes.hbm.xml</value>
+          <value>com/secureVerify/hibernate/Employer.hbm.xml</value>
+          <value>com/secureVerify/hibernate/Feedback.hbm.xml</value>
+          <value>com/secureVerify/hibernate/Interviewer.hbm.xml</value>
+          <value>com/secureVerify/hibernate/Location.hbm.xml</value>
+          <value>com/secureVerify/hibernate/LocationScheduleTiming.hbm.xml</value>
+          <value>com/secureVerify/hibernate/PaymentDetail.hbm.xml</value>
+          <value>com/secureVerify/hibernate/Propertie.hbm.xml</value>
+          <value>com/secureVerify/hibernate/SecureVerifyEmailSubjectBody.hbm.xml</value>
+          <value>com/secureVerify/hibernate/SkillSet.hbm.xml</value>
+          <value>com/secureVerify/hibernate/User.hbm.xml</value>
+		</list>
+    </property>	
+ 
+</bean>
+</beans>

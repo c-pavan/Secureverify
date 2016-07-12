@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.secureVerify.model.SecureVerifyEmailSubjectBody" table="secureverify_email_subject_body" catalog="secureverify">
+        <id name="emailUniqueId" type="java.lang.Integer">
+            <column name="email_unique_id" />
+            <generator class="identity" />
+        </id>
+        <property name="emailSendingType" type="int" column="email_sending_type" length="2" not-null="true" />
+        <property name="emailSubject" type="string" column="email_subject" length="1000" not-null="true" />
+        <property name="emailBody" type="string" column="email_body" length="65535" not-null="true" />
+    </class>
+</hibernate-mapping>

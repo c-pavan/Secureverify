@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.secureVerify.model.Interviewer" table="interviewer" catalog="secureverify">
+        <id name="interviewerId" type="java.lang.Integer">
+            <column name="interviewer_id" />
+            <generator class="identity" />
+        </id>
+		<property name="interviewerFirstName" type="string" column="interviewer_first_name" length="200" not-null="true"/>
+		<property name="interviewerLastName" type="string" column="interviewer_last_name" length="200" not-null="true"/>
+		<property name="interviewerEmailId" type="string" column="interviewer_email_id" length="200" not-null="true"/>
+		<property name="interviewerPassword" type="string" column="interviewer_password" length="50" not-null="true"/>
+		<property name="interviewerPhoneNo" type="string" column="interviewer_phone_no" length="20" not-null="true"/>
+		<property name="interviewerPhoneNoExtension" type="string" column="interviewer_phone_no_extension" length="20" />
+		<property name="interviewerAlternatePhone" type="string" column="interviewer_alternate_phone_no" length="20" />
+		<property name="interviewerAlternatePhoneNoExtension" type="string" column="interviewer_alternate_phone_no_extension" length="20" />
+		<property name="interviewerSkillSet1" type="int" column="interviewer_skill_set_1" length="15" not-null="true"/>
+		<property name="interviewerSkillSet2" type="int" column="interviewer_skill_set_2" length="15" />
+		<property name="interviewerSkillSet3" type="int" column="interviewer_skill_set_3" length="15" />
+		<property name="interviewerResume" type="string" column="interviewer_resume" length="65535" not-null="true"/>
+		<property name="interviewerResumeBlob" type="binary" column="interviewer_resume_blob" />
+		<property name="createdBy" type="int" column="created_by" not-null="true" />
+        <property name="lastModifiedBy" type="int" column="last_modified_by" not-null="true" />
+        <property name="creationDate" type="date" column="creation_date"  not-null="true" />
+        <property name="lastModifiedTime" type="timestamp" column="last_modified_time" length="19" not-null="true" />
+		<property name="verificationCode" type="string" column="verification_code" length="20" />
+        <property name="status" type="int" column="status" not-null="true" />
+    </class>
+</hibernate-mapping>

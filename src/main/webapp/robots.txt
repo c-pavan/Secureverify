@@ -1,0 +1,32 @@
+# robots.txt
+User-agent: *
+Disallow: 
+Disallow: /cgi-bin/
+Disallow: /root/
+Disallow: /home/
+Disallow: /bin/
+Disallow: /boot/
+Disallow: /cgroup/
+Disallow: /cvs/
+Disallow: /dev/
+Disallow: /etc/
+Disallow: /home/
+Disallow: /lib/
+Disallow: /lib64/
+Disallow: /local/
+Disallow: /lost+found/
+Disallow: /media/
+Disallow: /mnt/
+Disallow: /opt/
+Disallow: /proc/
+Disallow: /sbin/
+Disallow: /selinux/
+Disallow: /srv/ 
+Disallow: /sys/
+Disallow: /tmp/
+Disallow: /usr/share/tomcat7/bin/ 
+Disallow: /usr/share/tomcat7/conf/
+Disallow: /usr/share/tomcat7/lib/
+Disallow: /usr/share/tomcat7/logs/
+Disallow: /var/
+Sitemap: 

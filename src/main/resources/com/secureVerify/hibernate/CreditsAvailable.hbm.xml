@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.secureVerify.model.CreditsAvailable" table="credits_available" catalog="secureverify">
+        <id name="creditsAvailableId" type="java.lang.Integer">
+            <column name="credits_available_id" />
+            <generator class="identity" />
+        </id>
+		<property name="partyId" type="int" column="party_id" length="15" not-null="true"/>
+		<property name="partyTypeId" type="int" column="party_type_id" not-null="true"/>
+		<property name="totalNoOfCreditsPurchased" type="int" column="total_no_of_credits_purchased" length="10" not-null="true"/>
+		<property name="noOfCreditsAvailable" type="int" column="no_of_credits_available" length="10" not-null="true"/>
+        <property name="lastModified" type="timestamp" column="last_modified" length="19" not-null="true" />
+        <property name="status" type="int" column="status" not-null="true" />
+    </class>
+</hibernate-mapping>

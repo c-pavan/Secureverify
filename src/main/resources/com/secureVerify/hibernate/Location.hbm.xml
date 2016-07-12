@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.secureVerify.model.Location" table="location" catalog="secureverify">
+        <id name="locationId" type="java.lang.Integer">
+            <column name="location_id" />
+            <generator class="identity" />
+        </id>
+		<property name="locationName" type="string" column="location_name" length="200" not-null="true"/>
+		<property name="locationBusinessName" type="string" column="location_business_name" length="200" not-null="true"/>
+		<property name="locationAddressLine1" type="string" column="location_address_line_1" length="200" not-null="true"/>
+		<property name="locationAddressLine2" type="string" column="location_address_line_2" length="200" />
+		<property name="locationCity" type="string" column="location_city" length="200" not-null="true"/>
+		<property name="locationState" type="string" column="location_state" length="200" not-null="true"/>
+		<property name="locationCountry" type="string" column="location_country" length="200" not-null="true"/>
+		<property name="locationZipcode" type="string" column="location_zipcode" length="200" not-null="true"/>
+		<property name="locationPhoneNo" type="string" column="location_phone_no" length="20" not-null="true"/>
+		<property name="locationPhoneNoExtension" type="string" column="location_phone_no_extension" length="20" />
+		<property name="locationAlternatePhone" type="string" column="location_alternate_phone_no" length="20" />
+		<property name="locationAlternatePhoneNoExtension" type="string" column="location_alternate_phone_no_extension" length="20" />
+		<property name="locationPrimaryAgentId" type="int" column="location_primary_agent_id" length="200" not-null="true"/>
+		<property name="locationSecondaryAgentId" type="int" column="location_secondary_agent_id" length="200" />
+        <property name="latitude" type="double" column="latitude" not-null="true"/>
+        <property name="longitude" type="double" column="longitude" not-null="true" />
+		<property name="createdBy" type="int" column="created_by" not-null="true" />
+        <property name="lastModifiedBy" type="int" column="last_modified_by" not-null="true" />
+        <property name="creationDate" type="date" column="creation_date"  not-null="true" />
+        <property name="lastModifiedTime" type="timestamp" column="last_modified_time" length="19" not-null="true" />
+        <property name="status" type="int" column="status" not-null="true" />
+    </class>
+</hibernate-mapping>

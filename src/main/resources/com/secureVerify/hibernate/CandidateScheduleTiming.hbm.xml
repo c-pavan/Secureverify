@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.secureVerify.model.CandidateScheduleTiming" table="candidate_schedule_timing" catalog="secureverify">
+        <id name="candidateScheduleTimingId" type="java.lang.Integer">
+            <column name="canididate_schedule_timing_id" />
+            <generator class="identity" />
+        </id>
+		<property name="candidateId" type="int" column="canididate_id" length="15" not-null="true"/>
+		<property name="locationId" type="int" column="location_id" length="15" not-null="true"/>
+		<property name="interviewerId" type="int" column="interviewer_id" length="15" not-null="true"/>
+		<property name="locationScheduleTimingId" type="int" column="location_schedule_timing_id" length="15" not-null="true"/>
+		<property name="skillSetId" type="int" column="skill_set_id" length="15" not-null="true"/>
+		<property name="candidateScheduleFromTime" type="timestamp" column="candidate_schedule_from_time" length="19" />
+		<property name="candidateScheduleToTime" type="timestamp" column="candidate_schedule_to_time" length="19" />
+		<property name="candidateFeedback" type="string" column="candidate_feedback" length="65535"  not-null="true"/>
+		<property name="candidatePerformance" type="int" column="candidate_performance" not-null="true" />
+		<property name="interviewStatus" type="int" column="interview_status" not-null="true" />
+		<property name="candidateUniqueId" type="string" column="candidate_unique_id" length="9" not-null="true"/>
+		<property name="employerId" type="int" column="employer_id" not-null="true" />
+        <property name="createdBy" type="int" column="created_by" not-null="true" />
+        <property name="lastModifiedBy" type="int" column="last_modified_by" not-null="true" />
+        <property name="creationDate" type="date" column="creation_date"  not-null="true" />
+        <property name="lastModifiedTime" type="timestamp" column="last_modified_time" length="19" not-null="true" />
+        <property name="status" type="int" column="status" not-null="true" />
+    </class>
+</hibernate-mapping>

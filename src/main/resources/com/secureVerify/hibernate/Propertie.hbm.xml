@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.secureVerify.model.Propertie" table="propertie" catalog="secureverify">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="smtpHost" type="string" column="smtp_host" length="200" not-null="true" />
+        <property name="smtpPort1" type="string" column="smtp_port1" length="10" not-null="true" />
+        <property name="smtpPort2" type="string" column="smtp_port2" length="10" not-null="true" />
+        <property name="smtpSocketFactory" type="string" column="smtp_socket_factory" length="200" not-null="true" />
+        <property name="smtpSocketFactoryport" type="string" column="smtp_socket_factoryport" length="10" not-null="true" />
+        <property name="smtpAuth" type="string" column="smtp_auth" length="10" not-null="true" />
+        <property name="smtpUserid" type="string" column="smtp_userid" length="200" not-null="true" />
+        <property name="smtpPassword" type="string" column="smtp_password" length="200" not-null="true" />
+        <property name="adminId" type="string" column="admin_id" length="200" not-null="true" />
+    </class>
+</hibernate-mapping>

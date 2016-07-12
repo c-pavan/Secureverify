@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.secureVerify.model.Candidate" table="candidate" catalog="secureverify">
+        <id name="candidateId" type="java.lang.Integer">
+            <column name="candidate_id" />
+            <generator class="identity" />
+        </id>
+		<property name="candidateFirstName" type="string" column="candidate_first_name" length="200" not-null="true"/>
+		<property name="candidateLastName" type="string" column="candidate_last_name" length="200" not-null="true"/>
+		<property name="candidateEmailId" type="string" column="candidate_email_id" length="200" not-null="true"/>
+		<property name="candidatePassword" type="string" column="candidate_password" length="50" not-null="true"/>
+		<property name="candidatePhoneNo" type="string" column="candidate_phone_no" length="20" not-null="true"/>
+		<property name="candidatePhoneNoExtension" type="string" column="candidate_phone_no_extension" length="20" />
+		<property name="candidateAlternatePhone" type="string" column="candidate_alternate_phone_no" length="20" />
+		<property name="candidateAlternatePhoneNoExtension" type="string" column="candidate_alternate_phone_no_extension" length="20" />
+		<property name="skillSetId" type="int" column="skill_set_id" length="15" not-null="true"/>
+		<property name="candidateResume" type="string" column="candidate_resume" length="65535" not-null="true"/>
+		<property name="candidateResumeBlob" type="binary" column="candidate_resume_blob" />
+		<property name="candidateAddressLine1" type="string" column="candidate_address_line_1" length="200" not-null="true"/>
+		<property name="candidateAddressLine2" type="string" column="candidate_address_line_2" length="200" />
+		<property name="candidateCity" type="string" column="candidate_city" length="200" not-null="true"/>
+		<property name="candidateState" type="string" column="candidate_state" length="200" not-null="true"/>
+		<property name="candidateCountry" type="string" column="candidate_country" length="200" not-null="true"/>
+		<property name="candidateZipcode" type="string" column="candidate_zipcode" length="200" not-null="true"/>
+		<property name="candidatePrefferedLocation" type="string" column="candidate_preffered_location" length="200" not-null="true"/>
+		<property name="candidateExpectedSalary" type="string" column="candidate_expected_salary" length="200" not-null="true"/>
+		<property name="creationDate" type="date" column="creation_date"  not-null="true" />
+        <property name="lastModifiedTime" type="timestamp" column="last_modified_time" length="19" not-null="true" />
+		<property name="verificationCode" type="string" column="verification_code" length="20" />
+        <property name="status" type="int" column="status" not-null="true" />
+    </class>
+</hibernate-mapping>

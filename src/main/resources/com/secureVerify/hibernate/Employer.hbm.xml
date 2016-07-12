@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.secureVerify.model.Employer" table="employer" catalog="secureverify">
+        <id name="employerId" type="java.lang.Integer">
+            <column name="employer_id" />
+            <generator class="identity" />
+        </id>
+		<property name="employerFirstName" type="string" column="employer_first_name" length="200" not-null="true"/>
+		<property name="employerLastName" type="string" column="employer_last_name" length="200" not-null="true"/>
+		<property name="employerEmailId" type="string" column="employer_email_id" length="200" not-null="true"/>
+		<property name="employerPassword" type="string" column="employer_password" length="50" not-null="true"/>
+		<property name="employerPhoneNo" type="string" column="employer_phone_no" length="20" />
+		<property name="employerPhoneNoExtension" type="string" column="employer_phone_no_extension" length="20" />
+		<property name="employerAlternatePhone" type="string" column="employer_alternate_phone_no" length="20" />
+		<property name="employerAlternatePhoneNoExtension" type="string" column="employer_alternate_phone_no_extension" length="20" not-null="true"/>
+		<property name="employerCompanyName" type="string" column="employer_company_name" length="200" not-null="true"/>
+		<property name="employerTitle" type="string" column="employer_title" length="200" not-null="true"/>
+		<property name="employerAddressLine1" type="string" column="employer_address_line_1" length="200" not-null="true"/>
+		<property name="employerAddressLine2" type="string" column="employer_address_line_2" length="200" />
+		<property name="employerCity" type="string" column="employer_city" length="200" not-null="true"/>
+		<property name="employerState" type="string" column="employer_state" length="200" not-null="true"/>
+		<property name="employerCountry" type="string" column="employer_country" length="200" not-null="true"/>
+		<property name="employerZipcode" type="string" column="employer_zipcode" length="200" not-null="true"/>
+        <property name="creationDate" type="date" column="creation_date"  not-null="true" />
+        <property name="lastModifiedTime" type="timestamp" column="last_modified_time" length="19" not-null="true" />
+		<property name="verificationCode" type="string" column="verification_code" length="20" />
+        <property name="status" type="int" column="status" not-null="true" />
+    </class>
+</hibernate-mapping>

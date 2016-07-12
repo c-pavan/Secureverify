@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.secureVerify.model.Agent" table="agent" catalog="secureverify">
+        <id name="agentId" type="java.lang.Integer">
+            <column name="agent_id" />
+            <generator class="identity" />
+        </id>
+		<property name="agentFirstName" type="string" column="agent_first_name" length="200" not-null="true"/>
+		<property name="agentLastName" type="string" column="agent_last_name" length="200" not-null="true"/>
+		<property name="agentEmailId" type="string" column="agent_email_id" length="200" not-null="true"/>
+		<property name="agentPassword" type="string" column="agent_password" length="50" not-null="true"/>
+		<property name="agentPhoneNo" type="string" column="agent_phone_no" length="20" not-null="true"/>
+		<property name="agentPhoneNoExtension" type="string" column="agent_phone_no_extension" length="20" />
+		<property name="agentAlternatePhone" type="string" column="agent_alternate_phone_no" length="20" />
+		<property name="agentAlternatePhoneNoExtension" type="string" column="agent_alternate_phone_no_extension" length="20" />
+		<property name="agentMarket1" type="string" column="agent_market_1" length="200" not-null="true"/>
+		<property name="agentMarket2" type="string" column="agent_market_2" length="200" />
+		<property name="agentMarket3" type="string" column="agent_market_3" length="200" />
+		<property name="agentAddressLine1" type="string" column="agent_address_line_1" length="200" not-null="true"/>
+		<property name="agentAddressLine2" type="string" column="agent_address_line_2" length="200" />
+		<property name="agentCity" type="string" column="agent_city" length="200" not-null="true"/>
+		<property name="agentState" type="string" column="agent_state" length="200" not-null="true"/>
+		<property name="agentCountry" type="string" column="agent_country" length="200" not-null="true"/>
+		<property name="agentZipcode" type="string" column="agent_zipcode" length="200" not-null="true"/>
+        <property name="createdBy" type="int" column="created_by" not-null="true" />
+        <property name="lastModifiedBy" type="int" column="last_modified_by" not-null="true" />
+        <property name="creationDate" type="date" column="creation_date"  not-null="true" />
+        <property name="lastModifiedTime" type="timestamp" column="last_modified_time" length="19" not-null="true" />
+		<property name="verificationCode" type="string" column="verification_code" length="20" />
+        <property name="status" type="int" column="status" not-null="true" />
+    </class>
+</hibernate-mapping>

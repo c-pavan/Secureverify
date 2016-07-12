@@ -1,0 +1,1652 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+ 
+<struts>
+ 	<constant name="struts.devMode" value="false" />
+
+	<constant name="struts.action.extension" value="action, ,"/>
+	<constant name="struts.enable.SlashesInActionNames" value="true"/>
+	<constant name="struts.mapper.alwaysSelectFullNamespace" value="false"/>
+	<constant name="struts.patternMatcher" value="namedVariable" />
+ 	
+ 	<bean type="com.opensymphony.xwork2.UnknownHandler" name="handler" class="com.secureVerify.action.InvalidRequests"/>
+ 	
+	<package name="default" namespace="/" extends="struts-default">
+		
+		<global-results>
+			<result name="error">/error.jsp</result>
+		</global-results>
+		
+		<global-exception-mappings>
+			<exception-mapping exception="java.lang.Exception" result="error"/>
+		</global-exception-mappings>
+		
+		<action name="pageNotFound" class="com.secureVerify.action.PageNotFound" method="execute">
+		   <result name="success">/error404.jsp</result>
+		</action>
+		
+		<action name="{key}" class="com.secureVerify.action.HomeAction" method="getSpecificPage" >
+			<result name="input">home.jsp</result>
+		    <result name="success" >home.jsp</result>
+		    <result name="failure" type="redirect">home</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="home" class="com.secureVerify.action.HomeAction" method="getHomePage" >
+			<result name="input">home.jsp</result>
+		    <result name="success">home.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="whySecureVerify" class="com.secureVerify.action.HomeAction" method="whySecureVerify" >
+			<result name="input">whySecureVerify.jsp</result>
+		    <result name="success">whySecureVerify.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="contactus" class="com.secureVerify.action.HomeAction" method="getContactusPage" >
+			<result name="input">contactus.jsp</result>
+		    <result name="success">contactus.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="verifyCandidateSearch" class="com.secureVerify.action.HomeAction" method="verifyCandidateSearch" >
+			<result name="input">home.jsp</result>
+		    <result name="success">candidateFeedbackByCandidateUinqueId.jsp?id=success</result>
+		    <result name="notForund">candidateFeedbackByCandidateUinqueId.jsp?id=failure</result>
+		    <result name="failure">home.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="downloadCandidateResume" class="com.secureVerify.action.AdminAction" method="downloadCandidateResume">
+			<result name="success" type="stream">
+			  <param name="contentType">application/ms-word</param>
+			  <param name="inputName">inputStream</param>
+			  <param name="contentDisposition">attachment;filename=${candidateResume}</param>
+			  <param name="bufferSize">1024</param>
+			</result>
+		</action>
+		
+		<action name="downloadInterviewerResume" class="com.secureVerify.action.AdminAction" method="downloadInterviewerResume">
+			<result name="success" type="stream">
+			  <param name="contentType">application/ms-word</param>
+			  <param name="inputName">inputStream</param>
+			  <param name="contentDisposition">attachment;filename=${interviewerResume}</param>
+			  <param name="bufferSize">1024</param>
+			</result>
+		</action>
+		
+		
+		
+		<!-- Employer Admin -->
+		
+		<action name="employerLogin" class="com.secureVerify.action.EmployerAction" method="getEmployerLoginPage" >
+			<result name="input">employerLogin.jsp</result>
+		    <result name="success">employerLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="employerFaq" class="com.secureVerify.action.EmployerAction" method="getEmployerFaqPage" >
+			<result name="input">employerFaq.jsp</result>
+		    <result name="success">employerFaq.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="employerRegistration" class="com.secureVerify.action.EmployerAction" method="getEmployerRegistrationPage"  >
+			<result name="input">employerRegistration.jsp</result>
+		    <result name="success">employerRegistration.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="saveEmployerRegistration" class="com.secureVerify.action.EmployerAction" method="saveEmployerRegistration" >
+			<result name="input">employerRegistration.jsp</result>
+		    <result name="success">employerLogin.jsp</result>
+		    <result name="failure">employerRegistration.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="authenticateEmployer" class="com.secureVerify.action.EmployerAction" method="authenticateEmployer" >
+			<result name="input">employerLogin.jsp</result>
+		    <result name="success" type="redirect">employerCandidates</result>
+		    <result name="failure">employerLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="employerLogout" class="com.secureVerify.action.EmployerAction" method="getEmployerLogoutPage" >
+			<result name="input">employerLogin.jsp</result>
+		    <result name="success" type="redirect">employerLogin</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		
+		<!-- Employer Candidates -->
+		
+		<action name="employerCandidates" class="com.secureVerify.action.EmployerAction" method="getEmployerCandidatesPage" >
+			<result name="input">employerCandidates.jsp</result>
+		    <result name="success">employerCandidates.jsp</result>
+		    <result name="failure">employerLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="employerCandidatesSearch" class="com.secureVerify.action.EmployerAction" method="getEmployerCandidatesSearchPage" >
+			<result name="success">ajaxfiles/aEmployerCandidates.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="employerAddCandidate" class="com.secureVerify.action.EmployerAction" method="getEmployerAddCandidatePage" >
+			<result name="input">employerAddCandidate.jsp</result>
+			<result name="credits">employerCandidates.jsp</result>
+		    <result name="success">employerAddCandidate.jsp</result>
+		    <result name="failure">employerLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="saveEmployerCandidate" class="com.secureVerify.action.EmployerAction" method="saveEmployerCandidate" >
+			<result name="input">employerAddCandidate.jsp</result>
+			<result name="credits">employerCandidates.jsp</result>
+		    <result name="success" type="redirect">employerCandidates</result>
+		    <result name="failure">employerLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="viewEmployerCandidateDetails" class="com.secureVerify.action.EmployerAction" method="viewEmployerCandidateDetails" >
+		    <result name="success">ajaxfiles/eViewCandidate.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="editEmployerCandidate" class="com.secureVerify.action.EmployerAction" method="editEmployerCandidate" >
+			<result name="input">employerEditCandidate.jsp</result>
+		    <result name="success">employerEditCandidate.jsp</result>
+		    <result name="failure">employerLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="updateEmployerCandidate" class="com.secureVerify.action.EmployerAction" method="updateEmployerCandidate" >
+			<result name="input">employerEditCandidate.jsp</result>
+		    <result name="success" type="redirect">employerCandidates</result>
+		    <result name="employerEditCandidate">employerEditCandidate.jsp</result>
+		    <result name="failure">employerLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		
+		<!-- Employer Applied Candidates -->
+		
+		<action name="employerAppliedCandidates" class="com.secureVerify.action.EmployerAction" method="getEmployerAppliedCandidatesPage" >
+			<result name="input">employerAppliedCandidates.jsp</result>
+		    <result name="success">employerAppliedCandidates.jsp</result>
+		    <result name="failure">employerLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="employerAppliedCandidatesSearch" class="com.secureVerify.action.EmployerAction" method="getEmployerAppliedCandidatesPage" >
+			<result name="success">ajaxfiles/aEmployerAppliedCandidates.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="viewEmployerAppliedCandidateDetails" class="com.secureVerify.action.EmployerAction" method="viewEmployerAppliedCandidateDetails" >
+		    <result name="success">ajaxfiles/eViewAppliedCandidates.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		
+		<!-- Employer Scheduled Candidates -->
+		
+		<action name="employerScheduledCandidates" class="com.secureVerify.action.EmployerAction" method="getEmployerScheduledCandidatesPage" >
+			<result name="input">employerScheduledCandidates.jsp</result>
+		    <result name="success">employerScheduledCandidates.jsp</result>
+		    <result name="failure">employerLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="employerScheduledCandidatesSearch" class="com.secureVerify.action.EmployerAction" method="getEmployerScheduledCandidatesPage" >
+			<result name="success">ajaxfiles/aEmployerScheduledCandidates.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="viewEmployerScheduledCandidateDetails" class="com.secureVerify.action.EmployerAction" method="viewEmployerScheduledCandidateDetails" >
+		    <result name="success">ajaxfiles/eViewScheduledCandidate.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		
+		<!-- Employer Interviewed Candidates -->
+		
+		<action name="employerInterviewedCandidates" class="com.secureVerify.action.EmployerAction" method="getEmployerInterviewedCandidatesPage" >
+			<result name="input">employerInterviewedCandidates.jsp</result>
+		    <result name="success">employerInterviewedCandidates.jsp</result>
+		    <result name="failure">employerLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="employerInterviewedCandidatesSearch" class="com.secureVerify.action.EmployerAction" method="getEmployerInterviewedCandidatesPage" >
+			<result name="success">ajaxfiles/aEmployerInterviewedCandidates.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="viewEmployerInterviewedCandidateDetails" class="com.secureVerify.action.EmployerAction" method="viewEmployerInterviewedCandidateDetails" >
+		    <result name="success">ajaxfiles/eViewInterviewedCandidates.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="employerAllCandidates" class="com.secureVerify.action.EmployerAction" method="getEmployerAllCandidatesPage" >
+			<result name="input">employerAllCandidates.jsp</result>
+		    <result name="success">employerAllCandidates.jsp</result>
+		    <result name="failure">employerLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="viewEmployerAllCandidateDetails" class="com.secureVerify.action.EmployerAction" method="viewEmployerAllCandidateDetails" >
+		    <result name="success">ajaxfiles/eViewAllCandidates.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		
+		<!-- Employer Credits Management -->
+		
+		<action name="creditsManagment" class="com.secureVerify.action.EmployerAction" method="getCreditsManagmentPage" >
+			<result name="input">creditsManagment.jsp</result>
+		    <result name="success">creditsManagment.jsp</result>
+		    <result name="failure">employerLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="viewEmployerPayments" class="com.secureVerify.action.EmployerAction" method="viewEmployerPayments" >
+		    <result name="success">ajaxfiles/aViewEmployerPaymentDetails.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="buyEmployerCredits" class="com.secureVerify.action.EmployerAction" method="getBuyEmployerCreditsPage" >
+			<result name="input">employerBuyCredits.jsp</result>
+		    <result name="success">employerBuyCredits.jsp</result>
+		    <result name="failure">employerLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="applyCouponCode" class="com.secureVerify.action.PaymentAction" method="applyCouponCode">
+			<result name="success">/ajaxfiles/aApplyCouponCode.jsp?id=success</result>
+			<result name="error">/ajaxfiles/aApplyCouponCode.jsp?id=error</result>
+		</action>
+		
+		<action name="employerTransactionApproved" class="com.secureVerify.action.PaymentAction" method="getEmployerTransactionApprovedPage">
+			<result name="success" type="redirect">employerTransactionSuccess</result>
+			<result name="processed" type="redirect">employerTransactionAllReadyProcessed</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		<action name="employerTransactionSuccess" class="com.secureVerify.action.PaymentAction" method="getEmployerTransactionSuccessPage">
+			<result name="success" >employerTransactionApproved.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		<action name="employerTransactionAllReadyProcessed" class="com.secureVerify.action.PaymentAction" method="getEmployerTransactionAllReadyProcessedPage">
+			<result name="success" >employerTransactionAllReadyProcessed.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		<action name="employerTransactionDeclined" class="com.secureVerify.action.PaymentAction" method="getEmployerTransactionDeclinedPage">
+			<result name="success" type="redirect">employerTransactionError</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		<action name="employerTransactionError" class="com.secureVerify.action.PaymentAction" method="getEmployerTransactionErrorPage">
+			<result name="success">employerTransactionDeclined.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		<action name="creditsManagmentSearch" class="com.secureVerify.action.EmployerAction" method="getCreditsManagmentSearchPage" >
+			<result name="success">ajaxfiles/aEmployerCreditsManagement.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+				
+		
+		<!-- Employer Profile -->
+		
+		<action name="employerChangePassword" class="com.secureVerify.action.EmployerAction" method="getEmployerChangePasswordPage" >
+			<result name="input">employerChangePassword.jsp</result>
+		    <result name="success">employerChangePassword.jsp</result>
+		    <result name="failure">employerLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="updateEmployerPassword" class="com.secureVerify.action.EmployerAction" method="updateEmployerPassword" >
+			<result name="input">employerChangePassword.jsp</result>
+		    <result name="success">employerChangePassword.jsp</result>
+		    <result name="failure">employerLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="employerUpdateProfile" class="com.secureVerify.action.EmployerAction" method="getEmployerUpdateProfilePage" >
+			<result name="input">employerUpdateProfile.jsp</result>
+		    <result name="success">employerUpdateProfile.jsp</result>
+		    <result name="failure">employerLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="updateEmployerProfile" class="com.secureVerify.action.EmployerAction" method="updateEmployerProfile" >
+			<result name="input">employerUpdateProfile.jsp</result>
+		    <result name="success">employerUpdateProfile.jsp</result>
+		    <result name="failure">employerLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="updateCompanyInfo" class="com.secureVerify.action.EmployerAction" method="getUpdateCompanyInfoPage" >
+			<result name="input">updateCompanyInfo.jsp</result>
+		    <result name="success">updateCompanyInfo.jsp</result>
+		    <result name="failure">employerLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="updateEmployerCompanyInfo" class="com.secureVerify.action.EmployerAction" method="updateEmployerCompanyInfo" >
+			<result name="input">updateCompanyInfo.jsp</result>
+		    <result name="success">updateCompanyInfo.jsp</result>
+		    <result name="failure">employerLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="forgotEmployerPassword" class="com.secureVerify.action.EmployerAction" method="getForgotEmployerPassword" >
+		    <result name="input">forgotEmployerPassword.jsp</result>
+		    <result name="success">forgotEmployerPassword.jsp</result>
+		    <result name="failure">employerLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="resetEmployerPassword" class="com.secureVerify.action.EmployerAction" method="getResetEmployerPassword" >
+		    <result name="success">resetEmployerPassword.jsp</result>
+		    <result name="failure">forgotEmployerPassword.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="changeEmployerPasswordPage" class="com.secureVerify.action.EmployerAction" method="getUpdateEmployerPasswordPage" >
+		    <result name="success">resetEmployerPassword.jsp</result>
+		    <result name="failure">employerLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="changeEmployerPassword" class="com.secureVerify.action.EmployerAction" method="changeEmployerPassword" >
+		    <result name="success">employerLogin.jsp</result>
+		    <result name="failure">resetEmployerPassword.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		
+		
+		
+		<!-- Candidate Admin -->
+		
+		<action name="candidateLogin" class="com.secureVerify.action.CandidateAction" method="getCandidateLoginPage" >
+			<result name="input">candidateLogin.jsp</result>
+		    <result name="success">candidateLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="candidateFaq" class="com.secureVerify.action.CandidateAction" method="getCandidateFaqPage" >
+			<result name="input">candidateFaq.jsp</result>
+		    <result name="success">candidateFaq.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		
+		<!-- Candidate Registration -->
+		
+		<action name="candidateRegistration" class="com.secureVerify.action.CandidateAction" method="getCandidateRegistrationPage" >
+			<result name="input">candidateRegistration.jsp</result>
+		    <result name="success">candidateRegistration.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="saveCandidateRegistration" class="com.secureVerify.action.CandidateAction" method="saveCandidateRegistration" >
+			<result name="input">candidateRegistration.jsp</result>
+		    <result name="success" type="redirect">candidateScheduleVerification</result>
+		    <result name="failure">candidateRegistration.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="candidateRegister" class="com.secureVerify.action.CandidateAction" method="getCandidateRegisterPage" >
+			<result name="input">candidateRegister.jsp</result>
+		    <result name="success">candidateRegister.jsp</result>
+		    <result name="failure">candidateRegister.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="saveCandidateRegister" class="com.secureVerify.action.CandidateAction" method="saveCandidateRegister" >
+			<result name="input">candidateRegister.jsp</result>
+		    <result name="success" type="redirect">candidateScheduleVerification</result>
+		    <result name="failure">candidateRegister.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="authenticateCandidate" class="com.secureVerify.action.CandidateAction" method="authenticateCandidate" >
+			<result name="input">candidateLogin.jsp</result>
+		    <result name="success" type="redirect">candidateScheduleVerification</result>
+		    <result name="failure">candidateLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		
+		<!-- Candidate Scheduled Verification -->
+		
+		<action name="candidateScheduleVerification" class="com.secureVerify.action.CandidateAction" method="getCandidateScheduleVerificationPage" >
+			<result name="input">candidateScheduleVerification.jsp</result>
+		    <result name="success">candidateScheduleVerification.jsp</result>
+		    <result name="failure">candidateLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="locationList" class="com.secureVerify.action.CandidateAction" method="getLocationListByLatitudeLongitude" >
+		    <result name="success">ajaxfiles/aLocationList.jsp?id=success</result>
+		    <result name="error">ajaxfiles/aLocationList.jsp?id=error</result>
+		</action>
+		
+		<action name="locationScheduleTimingList" class="com.secureVerify.action.CandidateAction" method="getLocationScheduleTimingListByLocationId" >
+		    <result name="success">ajaxfiles/aLocationScheduleTimmingList.jsp?id=success</result>
+		    <result name="error">ajaxfiles/aLocationScheduleTimmingList.jsp?id=error</result>
+		</action>
+		
+		<action name="saveCandidateScheduleVerification" class="com.secureVerify.action.CandidateAction" method="saveCandidateScheduleVerification" >
+			<result name="input">candidateScheduleVerification.jsp</result>
+		    <result name="success" type="redirect">candidateScheduledTimeSlots</result>
+		    <result name="failure">candidateScheduleVerification.jsp</result>
+		    <result name="credits">candidateScheduleVerification.jsp</result>
+		    <result name="noCreditEntry">candidateLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		
+		<!-- Candidate Scheduled TimeSlots -->
+		
+		<action name="candidateScheduledTimeSlots" class="com.secureVerify.action.CandidateAction" method="getCandidateScheduledTimeSlotsPage" >
+			<result name="input">candidateScheduledTimeSlots.jsp</result>
+		    <result name="success">candidateScheduledTimeSlots.jsp</result>
+		    <result name="failure">candidateLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="candidateScheduledTimeSlotsSearch" class="com.secureVerify.action.CandidateAction" method="getCandidateScheduledTimeSlotsSearchPage" >
+			<result name="success">ajaxfiles/aCandidateSearchScheduledTimeSlots.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="viewCandidateScheduledDetails" class="com.secureVerify.action.CandidateAction" method="viewCandidateScheduledDetails" >
+		    <result name="success">ajaxfiles/cViewScheduledTimeSlot.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="editCandidateScheduleVerification" class="com.secureVerify.action.CandidateAction" method="editCandidateScheduleVerification" >
+			<result name="input">candidateScheduledTimeSlots.jsp</result>
+		    <result name="success">editCandidateScheduleVerification.jsp</result>
+		    <result name="failure">candidateLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="updateCandidateScheduleVerification" class="com.secureVerify.action.CandidateAction" method="updateCandidateScheduleVerification" >
+			<result name="input">candidateScheduledTimeSlots.jsp</result>
+		    <result name="success" type="redirect">candidateScheduledTimeSlots</result>
+		    <result name="candidateScheduleVerification">editCandidateScheduleVerification.jsp</result>
+		    <result name="failure">candidateLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		
+		<!-- Candidate Scheduled Interviews -->
+		
+		<action name="candidateScheduledInterviews" class="com.secureVerify.action.CandidateAction" method="getCandidateScheduledInterviewsPage" >
+			<result name="input">candidateScheduledInterviews.jsp</result>
+		    <result name="success">candidateScheduledInterviews.jsp</result>
+		    <result name="failure">candidateLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="candidateScheduledInterviewsSearch" class="com.secureVerify.action.CandidateAction" method="getCandidateScheduledInterviewsSearchPage" >
+			<result name="success">ajaxfiles/aCandidateSearchScheduledInterviews.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="viewCandidateScheduledInterviews" class="com.secureVerify.action.CandidateAction" method="viewCandidateScheduledInterviews" >
+		    <result name="success">ajaxfiles/cViewScheduledInterviews.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		
+		<!-- Candidate Interview Feedback -->
+		
+		<action name="candidateInterviewFeedback" class="com.secureVerify.action.CandidateAction" method="getCandidateInterviewFeedbackPage" >
+			<result name="input">candidateInterviewFeedback.jsp</result>
+		    <result name="success">candidateInterviewFeedback.jsp</result>
+		    <result name="failure">candidateLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="candidateInterviewFeedbackSearch" class="com.secureVerify.action.CandidateAction" method="getCandidateInterviewFeedbackSearchPage" >
+		    <result name="success">ajaxfiles/aCandidateSearchInterviewFeedback.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="viewCandidateInterviewFeedback" class="com.secureVerify.action.CandidateAction" method="viewCandidateInterviewFeedback" >
+		    <result name="success">ajaxfiles/cViewInterviewFeedback.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		
+		<!-- Candidate Manage Certifications -->
+		
+		<action name="candidateManageCertifications" class="com.secureVerify.action.CandidateAction" method="getCandidateManageCertificationsPage" >
+			<result name="input">candidateManageCertifications.jsp</result>
+		    <result name="success">candidateManageCertifications.jsp</result>
+		    <result name="failure">candidateLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		
+		<!-- Candidate Employer Scheduled Interview -->
+		
+		<action name="candidateEmployerScheduledInterview" class="com.secureVerify.action.CandidateAction" method="getCandidateEmployerScheduledInterviewPage" >
+			<result name="input">candidateEmployerScheduledInterview.jsp</result>
+		    <result name="success">candidateEmployerScheduledInterview.jsp</result>
+		    <result name="failure">candidateLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="candidateEmployerScheduledInterviewSearch" class="com.secureVerify.action.CandidateAction" method="getCandidateEmployerScheduledInterviewSearchPage" >
+			<result name="success">ajaxfiles/aCandidateSearchEmployerScheduledInterview.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="viewEmployerScheduledInterview" class="com.secureVerify.action.CandidateAction" method="viewEmployerScheduledInterview" >
+		    <result name="success">ajaxfiles/cViewEmployerScheduledInterview.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		
+		<!-- Candidate Profile -->
+		
+		<action name="candidateUpdatePassword" class="com.secureVerify.action.CandidateAction" method="getCandidateUpdatePasswordPage" >
+			<result name="input">candidateUpdatePassword.jsp</result>
+		    <result name="success">candidateUpdatePassword.jsp</result>
+		    <result name="failure">candidateLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="updateCandidatePassword" class="com.secureVerify.action.CandidateAction" method="updateCandidatePassword" >
+			<result name="input">candidateUpdatePassword.jsp</result>
+		    <result name="success">candidateUpdatePassword.jsp</result>
+		    <result name="failure">candidateLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="candidateUpdateProfile" class="com.secureVerify.action.CandidateAction" method="getCandidateUpdateProfilePage" >
+			<result name="input">candidateUpdateProfile.jsp</result>
+		    <result name="success">candidateUpdateProfile.jsp</result>
+		    <result name="failure">candidateLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="updateCandidateProfile" class="com.secureVerify.action.CandidateAction" method="updateCandidateProfile" >
+			<result name="input">candidateUpdateProfile.jsp</result>
+		    <result name="success">candidateUpdateProfile.jsp</result>
+		    <result name="failure">candidateLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="candidateResumesHistory" class="com.secureVerify.action.CandidateAction" method="getCandidateResumesHistory" >
+			<result name="input">candidateResumesHistory.jsp</result>
+		    <result name="success">candidateResumesHistory.jsp</result>
+		    <result name="failure">candidateLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="candidateResumesHistorySearch" class="com.secureVerify.action.CandidateAction" method="getCandidateResumesHistory" >
+			<result name="success">ajaxfiles/aCandidateResumesHistory.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="visaDetails" class="com.secureVerify.action.CandidateAction" method="getVisaDetailsPage" >
+			<result name="input">visaDetails.jsp</result>
+		    <result name="success">visaDetails.jsp</result>
+		    <result name="failure">candidateLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="candidateLogout" class="com.secureVerify.action.CandidateAction" method="getCandidateLogoutPage" >
+			<result name="input">candidateLogin.jsp</result>
+		    <result name="success" type="redirect">candidateLogin</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="forgotCandidatePassword" class="com.secureVerify.action.CandidateAction" method="getForgotCandidatePassword" >
+		    <result name="input">forgotCandidatePassword.jsp</result>
+		    <result name="success">forgotCandidatePassword.jsp</result>
+		    <result name="failure">candidateLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="resetCandidatePassword" class="com.secureVerify.action.CandidateAction" method="getResetCandidatePassword" >
+		    <result name="success">resetCandidatePassword.jsp</result>
+		    <result name="failure">forgotCandidatePassword.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="changeCandidatePasswordPage" class="com.secureVerify.action.CandidateAction" method="getUpdateCandidatePasswordPage" >
+		    <result name="success">resetCandidatePassword.jsp</result>
+		    <result name="failure">candidateLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="changeCandidatePassword" class="com.secureVerify.action.CandidateAction" method="changeCandidatePassword" >
+		    <result name="success">candidateLogin.jsp</result>
+		    <result name="failure">resetCandidatePassword.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		
+		<!-- Candidate Credits Management -->
+		
+		<action name="candidateCredits" class="com.secureVerify.action.CandidateAction" method="getCandidateCreditsPage" >
+			<result name="input">candidateCredits.jsp</result>
+		    <result name="success">candidateCredits.jsp</result>
+		    <result name="failure">candidateLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="viewCandidatePayments" class="com.secureVerify.action.CandidateAction" method="viewCandidatePayments" >
+		    <result name="success">ajaxfiles/aViewCandidatePaymentDetails.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="buyCandidateCredits" class="com.secureVerify.action.CandidateAction" method="getBuyCandidateCreditsPage" >
+			<result name="input">candidateBuyCredits.jsp</result>
+		    <result name="success">candidateBuyCredits.jsp</result>
+		    <result name="failure">candidateLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="candidateTransactionApproved" class="com.secureVerify.action.PaymentAction" method="getCandidateTransactionApprovedPage">
+			<result name="success" type="redirect">candidateTransactionSuccess</result>
+			<result name="processed" type="redirect">candidateTransactionAllReadyProcessed</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		<action name="candidateTransactionSuccess" class="com.secureVerify.action.PaymentAction" method="getCandidateTransactionSuccessPage">
+			<result name="success" >candidateTransactionApproved.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		<action name="candidateTransactionAllReadyProcessed" class="com.secureVerify.action.PaymentAction" method="getCandidateTransactionAllReadyProcessedPage">
+			<result name="success" >candidateTransactionAllReadyProcessed.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		<action name="candidateTransactionDeclined" class="com.secureVerify.action.PaymentAction" method="getCandidateTransactionDeclinedPage">
+			<result name="success" type="redirect">candidateTransactionError</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		<action name="candidateTransactionError" class="com.secureVerify.action.PaymentAction" method="getCandidateTransactionErrorPage">
+			<result name="success">candidateTransactionDeclined.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+				
+		<action name="candidateCreditsManagmentSearch" class="com.secureVerify.action.CandidateAction" method="getCreditsManagmentSearchPage" >
+			<result name="success">ajaxfiles/aCandidateCreditsManagement.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		
+		
+		<!-- Admin -->
+		
+		<action name="adminLogin" class="com.secureVerify.action.AdminAction" method="getAdminPage" >
+			<result name="input">error.jsp</result>
+		    <result name="success">adminLogin.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="authenticateAdmin" class="com.secureVerify.action.AdminAction" method="authenticateAdmin" >
+			<result name="input">adminLogin.jsp</result>
+		    <result name="success" type="redirect">adminInterviewer</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		
+		<!-- Admin Interviewer -->
+		
+		<action name="adminInterviewer" class="com.secureVerify.action.AdminAction" method="getAdminInterviewerPage" >
+			<result name="input">adminInterviewer.jsp</result>
+		    <result name="success">adminInterviewer.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="adminInterviewerSearch" class="com.secureVerify.action.AdminAction" method="getAdminInterviewerSearchPage" >
+			<result name="success">ajaxfiles/aAdminSearchInterviewer.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="addInterviewer" class="com.secureVerify.action.AdminAction" method="getAddInterviewerPage" >
+			<result name="input">addInterviewer.jsp</result>
+		    <result name="success">addInterviewer.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="saveInterviewer" class="com.secureVerify.action.AdminAction" method="saveInterviewer" >
+			<result name="input">addInterviewer.jsp</result>
+		    <result name="success" type="redirect">adminInterviewer</result>
+		    <result name="interviewer">addInterviewer.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="editInterviewer" class="com.secureVerify.action.AdminAction" method="getEditInterviewerPage" >
+			<result name="input">adminInterviewer.jsp</result>
+		    <result name="success">editInterviewer.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="updateInterviewer" class="com.secureVerify.action.AdminAction" method="updateInterviewer" >
+			<result name="input">editInterviewer.jsp</result>
+		    <result name="success" type="redirect">adminInterviewer</result>
+		    <result name="interviewer">editInterviewer.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="viewInterviewer" class="com.secureVerify.action.AdminAction" method="viewInterviewer" >
+		    <result name="success">ajaxfiles/aViewInterviewer.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="getInterviewerForDelete" class="com.secureVerify.action.AdminAction" method="viewInterviewer" >
+		    <result name="success">ajaxfiles/aDeleteInerviewer.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="deleteInterviewer" class="com.secureVerify.action.AdminAction" method="deleteInterviewer" >
+			<result name="input">adminInterviewer.jsp</result>
+		    <result name="success" type="redirect">adminInterviewer</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		
+		
+		<!-- Admin Candidate -->
+		
+		<action name="adminCandidate" class="com.secureVerify.action.AdminAction" method="getAdminCandidatePage" >
+			<result name="input">adminCandidate.jsp</result>
+		    <result name="success">adminCandidate.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="adminCandidateSearch" class="com.secureVerify.action.AdminAction" method="getAdminCandidateSearchPage" >
+		    <result name="success">ajaxfiles/aAdminSearchCandidate.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="viewAdminCandidate" class="com.secureVerify.action.AdminAction" method="viewAdminCandidate" >
+		    <result name="success">ajaxfiles/aAdminViewCandidate.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		
+		<!-- Admin Skill Set -->
+		
+		<action name="adminSkillSet" class="com.secureVerify.action.AdminAction" method="getAdminSkillSetPage" >
+			<result name="input">adminSkillSet.jsp</result>
+		    <result name="success">adminSkillSet.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="adminSkillSetSearch" class="com.secureVerify.action.AdminAction" method="getAdminSkillSetSearchPage" >
+			<result name="success">ajaxfiles/aAdminSearchSkillset.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="addSkillSet" class="com.secureVerify.action.AdminAction" method="getAddSkillSetPage" >
+			<result name="input">addSkillSet.jsp</result>
+		    <result name="success">addSkillSet.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="saveSkillSet" class="com.secureVerify.action.AdminAction" method="saveSkillSet" >
+			<result name="input">addSkillSet.jsp</result>
+		    <result name="success" type="redirect">adminSkillSet</result>
+		    <result name="skillSet">addSkillSet.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="editSkillSet" class="com.secureVerify.action.AdminAction" method="getEditSkillSetPage" >
+			<result name="input">adminSkillSet.jsp</result>
+		    <result name="success">editSkillSet.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="updateSkillSet" class="com.secureVerify.action.AdminAction" method="updateSkillSet" >
+			<result name="input">editSkillSet.jsp</result>
+		    <result name="success" type="redirect">adminSkillSet</result>
+		    <result name="skillSet">editSkillSet.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="viewSkillSet" class="com.secureVerify.action.AdminAction" method="viewSkillSet" >
+		    <result name="success">ajaxfiles/aViewSkillSet.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="getSkillSetForDelete" class="com.secureVerify.action.AdminAction" method="viewSkillSet" >
+		    <result name="success">ajaxfiles/aDeleteSkillSet.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="deleteSkillSet" class="com.secureVerify.action.AdminAction" method="deleteSkillSet" >
+			<result name="input">adminSkillSet.jsp</result>
+		    <result name="success" type="redirect">adminSkillSet</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		
+		<!-- Admin Loction -->
+		
+		<action name="adminLocation" class="com.secureVerify.action.AdminAction" method="getAdminLocationPage" >
+			<result name="input">adminLocation.jsp</result>
+		    <result name="success">adminLocation.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="adminLocationSearch" class="com.secureVerify.action.AdminAction" method="getAdminLocationSearchPage" >
+			<result name="success">ajaxfiles/aAdminSearchLocation.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="addLocation" class="com.secureVerify.action.AdminAction" method="getAddLocationPage" >
+			<result name="input">addLocation.jsp</result>
+		    <result name="success">addLocation.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="saveLocation" class="com.secureVerify.action.AdminAction" method="saveLocation" >
+			<result name="input">addLocation.jsp</result>
+		    <result name="success" type="redirect">adminLocation</result>
+		    <result name="location">addLocation.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="editLocation" class="com.secureVerify.action.AdminAction" method="getEditLocationPage" >
+			<result name="input">adminLocation.jsp</result>
+		    <result name="success">editLocation.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="updateLocation" class="com.secureVerify.action.AdminAction" method="updateLocation" >
+			<result name="input">editLocation.jsp</result>
+		    <result name="success" type="redirect">adminLocation</result>
+		    <result name="location">editLocation.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="viewLocation" class="com.secureVerify.action.AdminAction" method="viewLocation" >
+		    <result name="success">ajaxfiles/aViewLocation.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="getLocationForDelete" class="com.secureVerify.action.AdminAction" method="viewLocation" >
+		    <result name="success">ajaxfiles/aDeleteLocation.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="deleteLocation" class="com.secureVerify.action.AdminAction" method="deleteLocation" >
+			<result name="input">adminLocation.jsp</result>
+		    <result name="success" type="redirect">adminLocation</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		
+		<!-- Admin Agent -->
+		
+		<action name="adminAgent" class="com.secureVerify.action.AdminAction" method="getAdminAgentPage" >
+			<result name="input">adminAgent.jsp</result>
+		    <result name="success">adminAgent.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="adminAgentSearch" class="com.secureVerify.action.AdminAction" method="getAdminAgentSearchPage" >
+			<result name="success">ajaxfiles/aAdminSearchAgent.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="addAgent" class="com.secureVerify.action.AdminAction" method="getAddAgentPage" >
+			<result name="input">addAgent.jsp</result>
+		    <result name="success">addAgent.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="saveAgent" class="com.secureVerify.action.AdminAction" method="saveAgent" >
+			<result name="input">addAgent.jsp</result>
+		    <result name="success" type="redirect">adminAgent</result>
+		    <result name="agent">addAgent.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="editAgent" class="com.secureVerify.action.AdminAction" method="getEditAgentPage" >
+			<result name="input">adminAgent.jsp</result>
+		    <result name="success">editAgent.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="updateAgent" class="com.secureVerify.action.AdminAction" method="updateAgent" >
+			<result name="input">editAgent.jsp</result>
+		    <result name="success" type="redirect">adminAgent</result>
+		    <result name="agent">editAgent.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="viewAgent" class="com.secureVerify.action.AdminAction" method="viewAgent" >
+		    <result name="success">ajaxfiles/aViewAgent.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="getAgentForDelete" class="com.secureVerify.action.AdminAction" method="viewAgent" >
+		    <result name="success">ajaxfiles/aDeleteAgent.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="deleteAgent" class="com.secureVerify.action.AdminAction" method="deleteAgent" >
+			<result name="input">adminAgent.jsp</result>
+		    <result name="success" type="redirect">adminAgent</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		
+		<!-- Admin Employer -->
+		
+		<action name="adminEmployer" class="com.secureVerify.action.AdminAction" method="getAdminEmployerPage" >
+			<result name="input">adminEmployer.jsp</result>
+		    <result name="success">adminEmployer.jsp</result>
+		    <result name="failure">adminEmployer.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="adminEmployerSearch" class="com.secureVerify.action.AdminAction" method="getAdminEmployerSearchPage" >
+			<result name="success">ajaxfiles/aAdminSearchEmployer.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="viewEmployer" class="com.secureVerify.action.AdminAction" method="viewEmployer" >
+		    <result name="success">ajaxfiles/aViewEmployer.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="getEmployerForActivation" class="com.secureVerify.action.AdminAction" method="viewEmployer" >
+		    <result name="success">ajaxfiles/aEmployerActive.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="activateEmployer" class="com.secureVerify.action.AdminAction" method="activateEmployer" >
+			<result name="input">adminEmployer.jsp</result>
+		    <result name="success" type="redirect">adminEmployer</result>
+		    <result name="failure">adminEmployer.jsp</result>
+		    <result name="error">adminLogin.jsp</result>
+		</action>
+		
+		<action name="getEmployerForInActivation" class="com.secureVerify.action.AdminAction" method="viewEmployer" >
+		    <result name="success">ajaxfiles/aEmployerInActive.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="inActivateEmployer" class="com.secureVerify.action.AdminAction" method="inActivateEmployer" >
+			<result name="input">adminEmployer.jsp</result>
+		    <result name="success" type="redirect">adminEmployer</result>
+		    <result name="failure">adminEmployer.jsp</result>
+		    <result name="error">adminLogin.jsp</result>
+		</action>
+		
+		
+		<!-- Admin Coupon -->
+		
+		<action name="adminCoupon" class="com.secureVerify.action.AdminAction" method="getAdminCouponPage" >
+			<result name="input">adminCoupon.jsp</result>
+		    <result name="success">adminCoupon.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="adminCouponSearch" class="com.secureVerify.action.AdminAction" method="getAdminCouponSearchPage" >
+			<result name="success">ajaxfiles/aAdminSearchCoupon.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="addCoupon" class="com.secureVerify.action.AdminAction" method="getAddCouponPage" >
+			<result name="input">adminCoupon.jsp</result>
+		    <result name="success">addCoupon.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="saveCoupon" class="com.secureVerify.action.AdminAction" method="saveCoupon" >
+			<result name="input">addCoupon.jsp</result>
+		    <result name="success" type="redirect">adminCoupon</result>
+		    <result name="coupon">addCoupon.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="editCoupon" class="com.secureVerify.action.AdminAction" method="getEditCouponPage" >
+			<result name="input">adminCoupon.jsp</result>
+		    <result name="success">editCoupon.jsp</result>
+		    <result name="coupon">editCoupon.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="updateCoupon" class="com.secureVerify.action.AdminAction" method="updateCoupon" >
+			<result name="input">editCoupon.jsp</result>
+		    <result name="success" type="redirect">adminCoupon</result>
+		    <result name="coupon">editCoupon.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="viewCoupon" class="com.secureVerify.action.AdminAction" method="viewCoupon" >
+		    <result name="success">ajaxfiles/aViewCoupon.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="getCouponForDelete" class="com.secureVerify.action.AdminAction" method="viewCoupon" >
+		    <result name="success">ajaxfiles/aDeleteCoupon.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="deleteCoupon" class="com.secureVerify.action.AdminAction" method="deleteCoupon" >
+			<result name="input">adminCoupon.jsp</result>
+		    <result name="success" type="redirect">adminCoupon</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		
+		<!-- Admin Credit Types -->
+		
+		<action name="adminCreditTypes" class="com.secureVerify.action.AdminAction" method="getAdminCreditTypesPage" >
+			<result name="input">adminCreditTypes.jsp</result>
+		    <result name="success">adminCreditTypes.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="addCreditType" class="com.secureVerify.action.AdminAction" method="getAddCreditTypePage" >
+			<result name="input">addCreditType.jsp</result>
+		    <result name="success">addCreditType.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="saveCreditType" class="com.secureVerify.action.AdminAction" method="saveCreditType" >
+			<result name="input">addCreditType.jsp</result>
+		    <result name="success" type="redirect">adminCreditTypes</result>
+		     <result name="creditTypes">addCreditType.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="editCreditType" class="com.secureVerify.action.AdminAction" method="getEditCreditTypePage" >
+			<result name="input">adminCreditTypes.jsp</result>
+		    <result name="success">editCreditType.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="updateCreditType" class="com.secureVerify.action.AdminAction" method="updateCreditType" >
+		    <result name="input">editCreditType.jsp</result>
+		    <result name="success" type="redirect">adminCreditTypes</result>
+		    <result name="creditTypes">editCreditType.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<!-- Admin Payments -->
+		
+		<action name="adminPayments" class="com.secureVerify.action.AdminAction" method="getAdminPaymentsPage" >
+			<result name="input">adminPayments.jsp</result>
+		    <result name="success">adminPayments.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="adminPaymentDetailSearch" class="com.secureVerify.action.AdminAction" method="getAdminPaymentDetailSearchPage" >
+			<result name="success">ajaxfiles/aAdminSearchPayment.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="viewAdminPayments" class="com.secureVerify.action.AdminAction" method="viewAdminPayments" >
+		    <result name="success">ajaxfiles/aViewPaymentDetails.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<!-- Admin Profile -->
+		
+		<action name="adminViewProfile" class="com.secureVerify.action.AdminAction" method="getAdminViewProfilePage" >
+			<result name="input">adminViewProfile.jsp</result>
+		    <result name="success">adminViewProfile.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="adminEditProfile" class="com.secureVerify.action.AdminAction" method="getAdminEditProfilePage" >
+			<result name="input">adminViewProfile.jsp</result>
+		    <result name="success">adminEditProfile.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="updateAdmin" class="com.secureVerify.action.AdminAction" method="updateAdmin" >
+			<result name="input">adminViewProfile.jsp</result>
+		    <result name="success">adminViewProfile.jsp</result>
+		    <result name="admin">adminEditProfile.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="adminLogout" class="com.secureVerify.action.AdminAction" method="getAdminLogoutPage" >
+			<result name="input">adminLogin.jsp</result>
+		    <result name="success" type="redirect">adminLogin</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="forgotAdminPassword" class="com.secureVerify.action.AdminAction" method="getForgotAdminPassword" >
+		    <result name="input">forgotAdminPassword.jsp</result>
+		    <result name="success">forgotAdminPassword.jsp</result>
+		    <result name="failure">login.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="resetAdminPassword" class="com.secureVerify.action.AdminAction" method="getResetAdminPassword" >
+		    <result name="success">resetAdminPassword.jsp</result>
+		    <result name="failure">forgotAdminPassword.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="changeAdminPasswordPage" class="com.secureVerify.action.AdminAction" method="getUpdateAdminPasswordPage" >
+		    <result name="success">resetAdminPassword.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="changeAdminPassword" class="com.secureVerify.action.AdminAction" method="changeAdminPassword" >
+		    <result name="success">login.jsp</result>
+		    <result name="failure">resetAdminPassword.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		
+		
+		
+		<!-- Interviewer -->
+		
+		<action name="authenticateInterviewer" class="com.secureVerify.action.InterviewerAction" method="authenticateInterviewer" >
+			<result name="input">adminLogin.jsp</result>
+		    <result name="success" type="redirect">interviewerAppliedCandidates</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		
+		<!-- Interviewer Applied Candidates -->
+		
+		<action name="interviewerAppliedCandidates" class="com.secureVerify.action.InterviewerAction" method="getInterviewerAppliedCandidatesPage" >
+			<result name="input">interviewerAppliedCandidates.jsp</result>
+		    <result name="success">interviewerAppliedCandidates.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="interviewerAppliedCandidatesSearch" class="com.secureVerify.action.InterviewerAction" method="getInterviewerAppliedCandidatesSearchPage" >
+			<result name="success">ajaxfiles/aInterviewerSearchAppliedCandidates.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="viewInterviewerAppliedCandidate" class="com.secureVerify.action.InterviewerAction" method="viewInterviewerAppliedCandidate" >
+		    <result name="success">ajaxfiles/iViewAppliedCandidates.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="pickInterviewerAppliedCandidate" class="com.secureVerify.action.InterviewerAction" method="pickInterviewerAppliedCandidate" >
+		    <result name="success">ajaxfiles/iPickAppliedCandidates.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="updateInterviewerAppliedCandidate" class="com.secureVerify.action.InterviewerAction" method="updateInterviewerAppliedCandidate" >
+			<result name="input">interviewerAppliedCandidates.jsp</result>
+		    <result name="success" type="redirect">interviewerAppliedCandidates</result>
+		    <result name="interviewerAppliedCandidates">interviewerAppliedCandidates.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		
+		<!-- Interviewer Scheduled Candidates -->
+		
+		<action name="interviewerScheduledCandidates" class="com.secureVerify.action.InterviewerAction" method="getInterviewerScheduledCandidatesPage" >
+			<result name="input">interviewerInterviewScheduleCandidates.jsp</result>
+		    <result name="success">interviewerInterviewScheduleCandidates.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="interviewerScheduledCandidatesSearch" class="com.secureVerify.action.InterviewerAction" method="getInterviewerScheduledCandidatesSearchPage" >
+			<result name="success">ajaxfiles/aInterviewerSearchScheduledCandidates.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="viewInterviewerScheduledCandidate" class="com.secureVerify.action.InterviewerAction" method="viewInterviewerScheduledCandidate" >
+		    <result name="success">ajaxfiles/iViewInterviewScheduleCandidates.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="editInterviewerScheduledCandidate" class="com.secureVerify.action.InterviewerAction" method="editInterviewerScheduledCandidate" >
+			<result name="input">interviewerInterviewScheduleCandidates.jsp</result>
+		    <result name="success">interviewerEditCandidatesSchedule.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="updateInterviewerScheduledCandidate" class="com.secureVerify.action.InterviewerAction" method="updateInterviewerScheduledCandidate" >
+			<result name="input">interviewerInterviewScheduleCandidates.jsp</result>
+		    <result name="success" type="redirect">interviewerScheduledCandidates</result>
+		    <result name="interviewerScheduledCandidates">interviewerEditCandidatesSchedule.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="reportCandidatesfeedback" class="com.secureVerify.action.InterviewerAction" method="reportCandidatesfeedback" >
+			<result name="input">interviewerInterviewScheduleCandidates.jsp</result>
+		    <result name="success">reportCandidatesfeedback.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="updateInterviewerCandidatesfeedback" class="com.secureVerify.action.InterviewerAction" method="updateInterviewerCandidatesfeedback" >
+			<result name="input">reportCandidatesfeedback.jsp</result>
+		    <result name="success" type="redirect">interviewerScheduledCandidates</result>
+		    <result name="interviewerScheduledCandidates">reportCandidatesfeedback.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		
+		<!-- Interviewer Interviewed Candidates -->
+		
+		<action name="interviewerInterviewedCandidates" class="com.secureVerify.action.InterviewerAction" method="getInterviewerInterviewedCandidatesPage" >
+			<result name="input">interviewerInterviewedCandidates.jsp</result>
+		    <result name="success">interviewerInterviewedCandidates.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="interviewerInterviewedCandidatesSearch" class="com.secureVerify.action.InterviewerAction" method="getInterviewerInterviewedCandidatesSearchPage" >
+			<result name="success">ajaxfiles/aInterviewerSearchInterviewedCandidates.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="viewInterviewerInterviewedCandidate" class="com.secureVerify.action.InterviewerAction" method="viewInterviewerInterviewedCandidate" >
+		    <result name="success">ajaxfiles/iViewInterviewedCandidates.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="editInterviewerCandidatesfeedback" class="com.secureVerify.action.InterviewerAction" method="editInterviewerCandidatesfeedback" >
+			<result name="input">editCandidatesfeedback.jsp</result>
+		    <result name="success">editCandidatesfeedback.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="updateInterviewerInterviewedCandidate" class="com.secureVerify.action.InterviewerAction" method="updateInterviewerInterviewedCandidate" >
+			<result name="input">editCandidatesfeedback.jsp</result>
+		    <result name="success" type="redirect">interviewerInterviewedCandidates</result>
+		    <result name="interviewerScheduledCandidates">editCandidatesfeedback.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		
+		<!-- Interviewer Profile -->
+		
+		<action name="interviewerEditPassword" class="com.secureVerify.action.InterviewerAction" method="getInterviewerEditPasswordPage" >
+			<result name="input">interviewerUpdatePassword.jsp</result>
+		    <result name="success">interviewerUpdatePassword.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="interviewerUpdatePassword" class="com.secureVerify.action.InterviewerAction" method="interviewerUpdatePassword" >
+			<result name="input">interviewerUpdatePassword.jsp</result>
+		    <result name="success">interviewerUpdatePassword.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="interviewerEditProfile" class="com.secureVerify.action.InterviewerAction" method="getInterviewerEditProfilePage" >
+			<result name="input">interviewerUpdateProfile.jsp</result>
+		    <result name="success">interviewerUpdateProfile.jsp</result>
+		    <result name="failure">interviewerUpdateProfile.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="interviewerUpdateProfile" class="com.secureVerify.action.InterviewerAction" method="interviewerUpdateProfile" >
+			<result name="input">interviewerUpdateProfile.jsp</result>
+		    <result name="success" type="redirect">interviewerEditProfile</result>
+		    <result name="failure">interviewerUpdateProfile.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="interviewerLogout" class="com.secureVerify.action.InterviewerAction" method="getInterviewerLogoutPage" >
+			<result name="input">adminLogin.jsp</result>
+		    <result name="success" type="redirect">adminLogin</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="forgotInterviewerPassword" class="com.secureVerify.action.InterviewerAction" method="getForgotInterviewerPassword" >
+		    <result name="input">forgotInterviewerPassword.jsp</result>
+		    <result name="success">forgotInterviewerPassword.jsp</result>
+		    <result name="failure">login.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="resetInterviewerPassword" class="com.secureVerify.action.InterviewerAction" method="getResetInterviewerPassword" >
+		    <result name="success">resetInterviewerPassword.jsp</result>
+		    <result name="failure">forgotInterviewerPassword.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="changeInterviewerPasswordPage" class="com.secureVerify.action.InterviewerAction" method="getUpdateInterviewerPasswordPage" >
+		    <result name="success">resetInterviewerPassword.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="changeInterviewerPassword" class="com.secureVerify.action.InterviewerAction" method="changeInterviewerPassword" >
+		    <result name="success">login.jsp</result>
+		    <result name="failure">resetInterviewerPassword.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		
+		
+		
+		<!-- Agent -->
+		
+		<action name="authenticateAgent" class="com.secureVerify.action.AgentAction" method="authenticateAgent" >
+			<result name="input">adminLogin.jsp</result>
+		    <result name="success" type="redirect">agentLocation</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		
+		<!-- Agent Location -->
+		
+		<action name="agentLocation" class="com.secureVerify.action.AgentAction" method="getAgentLocationPage" >
+			<result name="input">agentLocationDetails.jsp</result>
+		    <result name="success">agentLocationDetails.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="agentLocationSearch" class="com.secureVerify.action.AgentAction" method="getAgentLocationPage" >
+			<result name="success">ajaxfiles/aAgentSearchLocation.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		
+		<action name="viewLocationDetails" class="com.secureVerify.action.AgentAction" method="viewLocationDetails" >
+		    <result name="success">ajaxfiles/aViewLocationDetails.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		
+		<!-- Agent Location Schedule Timings -->
+		
+		<action name="agentScheduleTimings" class="com.secureVerify.action.AgentAction" method="getAgentScheduleTimingsPage" >
+			<result name="input">agentScheduleTimings.jsp</result>
+		    <result name="success">agentScheduleTimings.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="agentScheduleTimingsSearch" class="com.secureVerify.action.AgentAction" method="getAgentScheduleTimingsPage" >
+			<result name="success">ajaxfiles/aAgentSearchScheduleTimings.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="agentAddScheduleTimings" class="com.secureVerify.action.AgentAction" method="getAgentAddScheduleTimingsPage" >
+			<result name="input">agentAddScheduleTimings.jsp</result>
+		    <result name="success">agentAddScheduleTimings.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="saveAgentScheduleTimings" class="com.secureVerify.action.AgentAction" method="saveAgentScheduleTimings" >
+			<result name="input" type="redirect">agentScheduleTimings</result>
+		    <result name="success" type="redirect">agentScheduleTimings</result>
+		    <result name="scheduleTimings">agentAddScheduleTimings.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="agentEditScheduleTimings" class="com.secureVerify.action.AgentAction" method="getAgentEditScheduleTimingsPage" >
+			<result name="input">agentEditScheduleTimings.jsp</result>
+		    <result name="success">agentEditScheduleTimings.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="updateAgentScheduleTimings" class="com.secureVerify.action.AgentAction" method="updateAgentScheduleTimings" >
+			<result name="input">agentEditScheduleTimings.jsp</result>
+		    <result name="success" type="redirect">agentScheduleTimings</result>
+		    <result name="scheduleTimings">agentEditScheduleTimings.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="viewAgentScheduleTiming" class="com.secureVerify.action.AgentAction" method="viewAgentScheduleTiming" >
+		    <result name="success">ajaxfiles/aViewAgentScheduleTiming.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="getAgentScheduleTimingForDelete" class="com.secureVerify.action.AgentAction" method="viewAgentScheduleTiming" >
+		    <result name="success">ajaxfiles/aDeleteAgentScheduleTiming.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="deleteAgentScheduleTiming" class="com.secureVerify.action.AgentAction" method="deleteAgentScheduleTiming" >
+			<result name="input">agentScheduleTimings.jsp</result>
+		    <result name="success" type="redirect">agentScheduleTimings</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		
+		<!-- Agent Interview Applied Candidates -->
+		
+		<action name="agentInterviewAppliedCandidates" class="com.secureVerify.action.AgentAction" method="getAgentInterviewAppliedCandidatesPage" >
+			<result name="input">agentInterviewAppliedCandidates.jsp</result>
+		    <result name="success">agentInterviewAppliedCandidates.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="agentInterviewAppliedCandidatesSearch" class="com.secureVerify.action.AgentAction" method="getAgentInterviewAppliedCandidatesPage" >
+			<result name="success">aAgentSearchInterviewAppliedCandidates.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="agentEditInterviewAppliedCandidates" class="com.secureVerify.action.AgentAction" method="getAgentEditInterviewAppliedCandidatesPage" >
+			<result name="input">agentEditInterviewAppliedCandidates.jsp</result>
+		    <result name="success">agentEditInterviewAppliedCandidates.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="updateAgentInterviewAppliedCandidates" class="com.secureVerify.action.AgentAction" method="updateAgentInterviewAppliedCandidates" >
+			<result name="input">agentEditInterviewAppliedCandidates.jsp</result>
+		    <result name="success" type="redirect">agentInterviewAppliedCandidates</result>
+		    <result name="agentInterviewAppliedCandidate">agentEditInterviewAppliedCandidates.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="viewAgentInterviewAppliedCandidates" class="com.secureVerify.action.AgentAction" method="viewAgentInterviewAppliedCandidates" >
+		    <result name="success">ajaxfiles/aViewAgentInterviewAppliedCandidates.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		
+		<!-- Agent Interview Scheduled Candidates -->
+		
+		<action name="agentInterviewerScheduledCandidates" class="com.secureVerify.action.AgentAction" method="getAgentInterviewerScheduledCandidatesPage" >
+			<result name="input">agentScheduledCandidates.jsp</result>
+		    <result name="success">agentScheduledCandidates.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="agentInterviewerScheduledCandidatesSearch" class="com.secureVerify.action.AgentAction" method="getAgentInterviewerScheduledCandidatesPage" >
+			<result name="success">ajaxfiles/aAgentSearchInterviewerScheduledCandidates.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="viewAgentInterviewerScheduledCandidates" class="com.secureVerify.action.AgentAction" method="viewAgentInterviewerScheduledCandidates" >
+		    <result name="success">ajaxfiles/aViewAgentInterviewerScheduledCandidates.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="agentEditInterviewerScheduledCandidates" class="com.secureVerify.action.AgentAction" method="getAgentEditInterviewerScheduledCandidatesPage" >
+			<result name="input">agentEditInterviewerScheduledCandidates.jsp</result>
+		    <result name="success">agentEditInterviewerScheduledCandidates.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="updateAgentInterviewerScheduledCandidates" class="com.secureVerify.action.AgentAction" method="updateAgentInterviewerScheduledCandidates" >
+			<result name="input">agentEditInterviewerScheduledCandidates.jsp</result>
+		    <result name="success" type="redirect">agentInterviewerScheduledCandidates</result>
+		    <result name="agentInterviewerScheduledCandidates">agentEditInterviewerScheduledCandidates.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		
+		<!-- Agent Interviewed Candidates -->
+		
+		<action name="agentInterviewedCandidates" class="com.secureVerify.action.AgentAction" method="getAgentInterviewedCandidatesPage" >
+			<result name="input">agentInterviewedCandidates.jsp</result>
+		    <result name="success">agentInterviewedCandidates.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="agentInterviewedCandidatesSearch" class="com.secureVerify.action.AgentAction" method="getAgentInterviewedCandidatesPage" >
+			<result name="success">ajaxfiles/aAgentSearchInterviewedCandidates.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="viewAgentInterviewedCandidates" class="com.secureVerify.action.AgentAction" method="viewAgentInterviewedCandidates" >
+		    <result name="success">ajaxfiles/aViewAgentInterviewedCandidates.jsp</result>
+		    <result name="error">ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		
+		<!-- Agent Profile -->
+		
+		<action name="editAgentPassword" class="com.secureVerify.action.AgentAction" method="getEditAgentPasswordPage" >
+			<result name="input">agentUpdatePassword.jsp</result>
+		    <result name="success">agentUpdatePassword.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="agentUpdatePassword" class="com.secureVerify.action.AgentAction" method="agentUpdatePassword" >
+			<result name="input">agentUpdatePassword.jsp</result>
+		    <result name="success">agentUpdatePassword.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="editAgentProfile" class="com.secureVerify.action.AgentAction" method="getEditAgentProfilePage" >
+			<result name="input">agentUpdateProfile.jsp</result>
+		    <result name="success">agentUpdateProfile.jsp</result>
+		    <result name="failure">agentUpdateProfile.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="agentUpdateProfile" class="com.secureVerify.action.AgentAction" method="agentUpdateProfile" >
+			<result name="input">agentUpdateProfile.jsp</result>
+		    <result name="success">agentUpdateProfile.jsp</result>
+		    <result name="agent">agentUpdateProfile.jsp</result>
+		    <result name="failure">agentUpdateProfile.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="agentLogout" class="com.secureVerify.action.AgentAction" method="getAgentLogoutPage" >
+			<result name="input">adminLogin.jsp</result>
+		    <result name="success" type="redirect">adminLogin</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="forgotAgentPassword" class="com.secureVerify.action.AgentAction" method="getForgotAgentPassword" >
+		    <result name="input">forgotAgentPassword.jsp</result>
+		    <result name="success">forgotAgentPassword.jsp</result>
+		    <result name="failure">login.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="resetAgentPassword" class="com.secureVerify.action.AgentAction" method="getResetAgentPassword" >
+		    <result name="input">resetAgentPassword.jsp</result>
+		    <result name="success">resetAgentPassword.jsp</result>
+		    <result name="failure">forgotAgentPassword.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="changeAgentPasswordPage" class="com.secureVerify.action.AgentAction" method="getUpdateAgentPasswordPage" >
+		    <result name="success">resetAgentPassword.jsp</result>
+		    <result name="failure">adminLogin.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		<action name="changeAgentPassword" class="com.secureVerify.action.AgentAction" method="changeAgentPassword" >
+		    <result name="success">login.jsp</result>
+		    <result name="failure">resetAgentPassword.jsp</result>
+		    <result name="error">error.jsp</result>
+		</action>
+		
+		
+		
+		
+	</package>
+	
+</struts>
